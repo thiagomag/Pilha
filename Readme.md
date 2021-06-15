@@ -31,4 +31,4 @@ Buscar: O(n)
 Inserir: O(1)
 Excluir: O(1)
 
-# Código da fila feito com array
+# Código da pilha feito com array
