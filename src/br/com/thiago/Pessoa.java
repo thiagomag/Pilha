@@ -2,12 +2,12 @@ package br.com.thiago;
 
 public class Pessoa {
     String nome;
-    int idade;
+    String idade;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, int idade) {
+    public Pessoa(String nome, String idade) {
         this.nome = nome;
         this.idade = idade;
     }
@@ -20,11 +20,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public String getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(String idade) {
         this.idade = idade;
     }
 

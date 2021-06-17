@@ -1,19 +1,28 @@
 package br.com.thiago;
 
+import br.com.thiago.estruturas.EstruturaDados;
 import br.com.thiago.estruturas.Pilha;
 import br.com.thiago.exceptions.FilaVaziaException;
 import br.com.thiago.exceptions.IndiceInexistenteException;
 import br.com.thiago.exceptions.PessoaNaoEcontradaException;
 import br.com.thiago.exceptions.TipoDeRemocaoException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Aplicacao {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         boolean continua = true;
         Pilha pilha = new Pilha();
+        dadosIniciais(pilha);
 
         while (continua) {
             switch (menu(input)) {
@@ -22,7 +31,7 @@ public class Aplicacao {
                     input.nextLine();
                     String nome = input.nextLine();
                     System.out.println("Qual a idade da pessoa?");
-                    int idade = input.nextInt();
+                    String idade = input.nextLine();
                     pilha.adicionar(new Pessoa(nome, idade));
                     break;
                 case 2:
@@ -94,5 +103,17 @@ public class Aplicacao {
             opcao = input.nextInt();
         } while (opcao < 1 || opcao > 8);
         return opcao;
+    }
+
+    private static void dadosIniciais(EstruturaDados estruturaDados) throws IOException {
+        Path path = Paths.get("dados.txt");
+        try (Stream<String> stream = Files.lines(path)) {
+            List<String> lines = stream.collect(Collectors.toUnmodifiableList());
+            for (int i = 0; i < lines.size(); i += 2) {
+                String nome = lines.get(i);
+                String idade = lines.get(i + 1);
+                estruturaDados.adicionar(new Pessoa(nome, idade));
+            }
+        }
     }
 }
